@@ -90,13 +90,46 @@ class BOARD:
 
         # gpiod.setup(BOARD.SWITCH, gpiod.IN, pull_up_down=gpiod.PUD_DOWN) 
         # DIOx
+        '''
         DIO_DICT = {BOARD.DIO0_CHIP : BOARD.DIO0_LINE_OFFSET, 
                     BOARD.DIO1_CHIP : BOARD.DIO1_LINE_OFFSET, 
                     BOARD.DIO2_CHIP : BOARD.DIO2_LINE_OFFSET, 
                     BOARD.DIO3_CHIP : BOARD.DIO3_LINE_OFFSET}
         
-        DIO = {BOARD.dio0, BOARD.dio1, BOARD.dio2, BOARD.dio3}
-        i = 0
+        '''
+        
+        
+        #DIO = {BOARD.dio0, BOARD.dio1, BOARD.dio2, BOARD.dio3}
+
+        # dio0
+        dio_chip = gpiod.chip(BOARD.DIO0_CHIP)
+        dio0 = dio_chip.get_line(BOARD.DIO0_LINE_OFFSET)
+        dio_config = gpiod.line_request()
+        dio_config.flags = gpiod.line_request.FLAG_BIAS_PULL_DOWN
+        dio_config.request_type = gpiod.line_request.DIRECTION_INPUT
+        dio0.request(dio_config)
+        # dio1
+        dio_chip = gpiod.chip(BOARD.DIO1_CHIP)
+        dio1 = dio_chip.get_line(BOARD.DIO1_LINE_OFFSET)
+        dio_config = gpiod.line_request()
+        dio_config.flags = gpiod.line_request.FLAG_BIAS_PULL_DOWN
+        dio_config.request_type = gpiod.line_request.DIRECTION_INPUT
+        dio1.request(dio_config)
+        # dio2
+        dio_chip = gpiod.chip(BOARD.DIO2_CHIP)
+        dio2 = dio_chip.get_line(BOARD.DIO2_LINE_OFFSET)
+        dio_config = gpiod.line_request()
+        dio_config.flags = gpiod.line_request.FLAG_BIAS_PULL_DOWN
+        dio_config.request_type = gpiod.line_request.DIRECTION_INPUT
+        dio2.request(dio_config)
+        # dio3
+        dio_chip = gpiod.chip(BOARD.DIO3_CHIP)
+        dio3 = dio_chip.get_line(BOARD.DIO3_LINE_OFFSET)
+        dio_config = gpiod.line_request()
+        dio_config.flags = gpiod.line_request.FLAG_BIAS_PULL_DOWN
+        dio_config.request_type = gpiod.line_request.DIRECTION_INPUT
+        dio3.request(dio_config)
+        '''
         for chip,offset in DIO_DICT.items():
             dio_chip = gpiod.chip(chip)
             DIO[i] = dio_chip.get_line(offset)
@@ -105,6 +138,8 @@ class BOARD:
             dio_config.request_type = gpiod.line_request.DIRECTION_INPUT
             DIO[i].request(dio_config)
             i+=1
+        '''
+        
             # gpiod.setup(gpiod_pin, gpiod.IN, pull_up_down=gpiod.PUD_DOWN)
         # blink 2 times to signal the board is set up
         BOARD.blink(.1, 2)
