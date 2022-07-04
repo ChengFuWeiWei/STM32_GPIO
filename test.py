@@ -34,27 +34,27 @@ class BOARD:
     """
     # Note that the BCOM numbering for the gpiods is used.
     # DIO0 = 22   # RaspPi gpiod 22
-    DIO0_CHIP = "gpiodchip6"
+    DIO0_CHIP = "gpiochip6"
     DIO0_LINE_OFFSET = int(15)
     dio0 = None
     # DIO1 = 23   # RaspPi gpiod 23
-    DIO1_CHIP = "gpiodchip5"
+    DIO1_CHIP = "gpiochip5"
     DIO1_LINE_OFFSET = int(1)
     dio1 = None
     # DIO2 = 24   # RaspPi gpiod 24
-    DIO2_CHIP = "gpiodchip5"
+    DIO2_CHIP = "gpiochip5"
     DIO2_LINE_OFFSET = int(0)
     dio2 = None
     # DIO3 = 25   # RaspPi gpiod 25
-    DIO3_CHIP = "gpiodchip5"
+    DIO3_CHIP = "gpiochip5"
     DIO3_LINE_OFFSET = int(0)
     dio3 = None
     #LED  = 18   # RaspPi gpiod 18 connects to the LED on the proto shield
-    LED_CHIP = "gpiodchip5"
-    LED_LINE_OFFSET = int(4)
+    LED_CHIP = "gpiochip0"
+    LED_LINE_OFFSET = int(14)
     led = None
     # SWITCH = 4  # RaspPi gpiod 4 connects to a switch
-    SWITCH_CHIP = "gpiodchip0"
+    SWITCH_CHIP = "gpiochip0"
     SWITCH_LINE_OFFSET = int(8)
     # The spi object is kept here
     spi = None
@@ -69,7 +69,7 @@ class BOARD:
         """ Configure the Raspberry gpiods
         :rtype : None
         """
-        gpiod.setmode(gpiod.BCM)
+        #gpiod.setmode(gpiod.BCM)
         # LED
         # gpiod.setup(BOARD.LED, gpiod.OUT)
         # gpiod.output(BOARD.LED, 0)
