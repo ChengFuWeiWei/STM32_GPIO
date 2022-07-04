@@ -36,16 +36,19 @@ class BOARD:
     # DIO0 = 22   # RaspPi gpiod 22
     DIO0_CHIP = "gpiodchip6"
     DIO0_LINE_OFFSET = int(15)
-
+    dio0 = None
     # DIO1 = 23   # RaspPi gpiod 23
     DIO1_CHIP = "gpiodchip5"
     DIO1_LINE_OFFSET = int(1)
+    dio1 = None
     # DIO2 = 24   # RaspPi gpiod 24
     DIO2_CHIP = "gpiodchip5"
     DIO2_LINE_OFFSET = int(0)
+    dio2 = None
     # DIO3 = 25   # RaspPi gpiod 25
     DIO3_CHIP = "gpiodchip5"
     DIO3_LINE_OFFSET = int(0)
+    dio3 = None
     #LED  = 18   # RaspPi gpiod 18 connects to the LED on the proto shield
     LED_CHIP = "gpiodchip5"
     LED_LINE_OFFSET = int(4)
@@ -91,13 +94,17 @@ class BOARD:
                     BOARD.DIO1_CHIP : BOARD.DIO1_LINE_OFFSET, 
                     BOARD.DIO2_CHIP : BOARD.DIO2_LINE_OFFSET, 
                     BOARD.DIO3_CHIP : BOARD.DIO3_LINE_OFFSET}
+        
+        DIO = {BOARD.dio0, BOARD.dio1, BOARD.dio2, BOARD.dio3}
+        i = 0
         for chip,offset in DIO_DICT.items():
             dio_chip = gpiod.chip(chip)
-            dio = dio_chip.get_line(offset)
+            DIO[i] = dio_chip.get_line(offset)
             dio_config = gpiod.line_request()
             dio_config.flags = gpiod.line_request.FLAG_BIAS_PULL_DOWN
             dio_config.request_type = gpiod.line_request.DIRECTION_INPUT
-            dio.request(dio_config)
+            DIO[i].request(dio_config)
+            i+=1
             # gpiod.setup(gpiod_pin, gpiod.IN, pull_up_down=gpiod.PUD_DOWN)
         # blink 2 times to signal the board is set up
         BOARD.blink(.1, 2)
